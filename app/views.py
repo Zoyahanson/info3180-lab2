@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, url_for, flash
-
+import datetime
 
 ###
 # Routing for your application.
@@ -16,6 +16,30 @@ def home():
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
+
+def format_date_joined(date):
+    """
+    Returns a date formatted as 'Month, Year'.
+    """
+    return date.strftime("%B, %Y")
+
+
+@app.route('/profile')
+def profile():
+    """Render a fake user profile page."""
+    # Fake profile data
+    user_profile = {
+        "full_name": "Zoya Hanson",
+        "username": "zoyah123",
+        "location": "Kingston, Jamaica",
+        "date_joined": format_date_joined(datetime.date(2021, 2, 7)),
+        "bio": "I love to read!",
+        "posts": 12,
+        "followers": 150,
+        "following": 75,
+        "photo": "profile.jpeg" 
+    }
+    return render_template("profile.html", profile=user_profile)
 
 
 ###
